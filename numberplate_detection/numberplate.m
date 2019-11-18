@@ -17,12 +17,12 @@ edgeDetectedImage = edge(grayimg, 'Sobel');
 % display image
 % imshow(edgeDetectedImage);
 
-% get size of grayscale img
-[imageHeight, imageWidth] = size(grayimg);
-
 %%%%%%%%%%%%%%% STEP 2 : Perform morphological operations %%%%%%%%%%%%%% 
 
 % Goal - To ensure that the license plate is not cropped
+
+% get size of grayscale img
+[imageHeight, imageWidth] = size(grayimg);
 
 % create a structuring element of shape rectangle with 1 row and 50 columns
 structuringElement = strel('rectangle', [1, 50]);
@@ -49,7 +49,6 @@ openedImage2 = imopen(openedImage1, structuringElement);
 % create a matrix with all zeroes
 subimg = zeros(imageHeight, imageWidth);
 
-% set difference operation (A-B)
 % This results in the elimination of regions with height greater than the maximum license plate height.
 
 for i = 1 : imageHeight
@@ -58,9 +57,7 @@ for i = 1 : imageHeight
     end
 end
 
-% Resultant image now has pixels which are in openedImage1 but not in openedImage2
-
-% Finally, an image opening operation with horizonital SE (SE width is less thani minimum license plate width) 
+% Finally, an image opening operation with horizonital SE (SE width is less than minimum license plate width) 
 % eliminiates the noise blobs whose width is less than minimum width of license plate. 
 
 % create a structuring element
